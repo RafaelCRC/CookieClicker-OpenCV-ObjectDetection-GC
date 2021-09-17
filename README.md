@@ -1,0 +1,2 @@
+# CookieClicker OpenCV ObjectDetection GC
+ 
