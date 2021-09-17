@@ -61,8 +61,8 @@ def findClickPositions(needle_img_path, haystack_img_path, threshold = 0.5, debu
 
             cv.imshow('Matches', haystack_img)
             cv.waitKey()
-
+    #cv.imwrite('result.jpg', haystack_img)
     return points
 
-points = findClickPositions('bcookie.png', 'gameimgsec.png', 0.35, 'rectangles')
-#points = findClickPositions('gcrop.jpg', 'gameimgsec.png', 0.35, 'rectangles')
+#points = findClickPositions('bcookie.png', 'gameimgsec.png', 0.35, 'points')
+points = findClickPositions('gcrop.jpg', 'gameimgsec.png', 0.35, 'points')
