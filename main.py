@@ -1,7 +1,8 @@
 import cv2 as cv
 import numpy as np
 
-def findClickPositions(needle_img_path, haystack_img_path, threshold = 0.5, debug_mode = None):
+
+def findClickPositions(needle_img_path, haystack_img_path, threshold=0.5, debug_mode=None):
     #haystack_img = cv.imread('cgame.jpg', cv.IMREAD_UNCHANGED)
     haystack_img = cv.imread(haystack_img_path, cv.IMREAD_UNCHANGED)
     needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
@@ -13,12 +14,12 @@ def findClickPositions(needle_img_path, haystack_img_path, threshold = 0.5, debu
     result = cv.matchTemplate(haystack_img, needle_img, method)
     #result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
 
-    #print(result)
+    # print(result)
 
     #threshold = 0.35
-    #threshold = 0.20 #SQDIFF_NORMED
+    # threshold = 0.20 #SQDIFF_NORMED
     locations = np.where(result >= threshold)
-    #locations = np.where(result <= threshold) #SQDIFF_NORMED
+    # locations = np.where(result <= threshold) #SQDIFF_NORMED
     locations = list(zip(*locations[::-1]))
 
     rectangles = []
@@ -51,18 +52,22 @@ def findClickPositions(needle_img_path, haystack_img_path, threshold = 0.5, debu
                 top_left = (x, y)
                 bottom_right = (x + w, y + h)
 
-                cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
+                cv.rectangle(haystack_img, top_left,
+                             bottom_right, line_color, line_type)
 
             elif debug_mode == 'points':
 
-                cv.drawMarker(haystack_img, (center_x, center_y), marker_color, marker_type)
-                
+                cv.drawMarker(haystack_img, (center_x, center_y),
+                              marker_color, marker_type)
+
         if debug_mode:
 
             cv.imshow('Matches', haystack_img)
             cv.waitKey()
-    #cv.imwrite('result.jpg', haystack_img)
+    # cv.imwrite('result.jpg', haystack_img) #use isto para criar uma foto resultado
     return points
 
-#points = findClickPositions('bcookie.png', 'gameimgsec.png', 0.35, 'points')
-points = findClickPositions('gcrop.jpg', 'gameimgsec.png', 0.35, 'points')
+
+#points = findClickPositions('gallery/gcrop.jpg', 'gallery/gameimgsec.png', 0.35, 'points')
+points = findClickPositions('gallery/bcookie.png',
+                            'gallery/gameimgsec.png', 0.35, 'rectangles')
